@@ -1,4 +1,4 @@
-import com.devisv.javalin.demo01.JettyServer;
+import com.devisv.javalin.demo02.JavalinServer;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -10,16 +10,15 @@ import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestJettyServlet {
+public class TestJettyServlets {
 
     @Before
     public void before() throws Exception {
-        JettyServer.start();
+        JavalinServer.start();
     }
 
     @Test
     public void test() throws IOException {
-
         String url = "http://localhost:9000/status";
 
         HttpClient client = HttpClientBuilder.create().build();
@@ -33,12 +32,11 @@ public class TestJettyServlet {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @After
     public void after() throws Exception {
-        JettyServer.stop();
+        JavalinServer.stop();
     }
 
 }
