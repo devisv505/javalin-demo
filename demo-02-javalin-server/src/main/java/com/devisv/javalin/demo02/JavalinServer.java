@@ -9,11 +9,13 @@ public class JavalinServer {
     private static final Javalin server = Javalin.create();
 
     public static void start() {
-        server.get("/status", ctx -> {
-                    ctx.json(
-                            CompletableFuture.supplyAsync(() -> new StatusDao("ok"))
-                    );
-                }
+        server.get("/status", ctx ->
+                ctx.result(CompletableFuture.supplyAsync(() -> "{ \"status\": \"ok\"}"))
+                   .contentType("application/json")
+        );
+
+        server.requestLogger((ctx, executionTimeMs) ->
+                System.out.println(ctx.method() + " " + ctx.path() + " took " + executionTimeMs + " ms")
         );
 
         server.start(9000);
